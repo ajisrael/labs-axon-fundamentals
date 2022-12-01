@@ -1,6 +1,7 @@
 package io.axoniq.training.labs.giftcard.coreapi;
 
 import java.time.Instant;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,21 +9,71 @@ import javax.persistence.Id;
 public class CardSummary {
 
     @Id
-    private String cardId = "";
+    private String cardId;
+    private Integer initialValue;
+    private Instant issuedAt;
+    private Integer remainingValue;
 
-    public String getCardId() {
-        return null;
+    public CardSummary(String cardId, int initialValue, Instant issuedAt) {
+        this.cardId = cardId;
+        this.initialValue = initialValue;
+        this.issuedAt = issuedAt;
+        this.remainingValue = initialValue;
     }
 
-    public int getInitialValue() {
-        return 0;
+    // Why is the empty constructor required?
+    public CardSummary() {
+        // Required by axon framework
+    }
+
+    public String getCardId() {
+        return this.cardId;
+    }
+
+    public Integer getInitialValue() {
+        return this.initialValue;
     }
 
     public Instant getIssuedAt() {
-        return Instant.now();
+        return this.issuedAt;
     }
 
-    public int getRemainingValue() {
-        return 0;
+    public Integer getRemainingValue() {
+        return this.remainingValue;
+    }
+
+    public void setRemainingValue(int remainingValue) {
+        this.remainingValue = remainingValue;
+    }
+
+    // Overrides for testing
+    @Override
+    public String toString() {
+        return "CardSummary{" +
+                "cardId='" + cardId + '\'' +
+                ", initialValue=" + initialValue +
+                ", issuedAt=" + issuedAt +
+                ", remainingValue=" + remainingValue +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CardSummary that = (CardSummary) o;
+        return Objects.equals(cardId, that.cardId) &&
+                Objects.equals(initialValue, that.initialValue) &&
+                Objects.equals(issuedAt, that.issuedAt) &&
+                Objects.equals(remainingValue, that.remainingValue);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardId, initialValue, issuedAt, remainingValue);
     }
 }
