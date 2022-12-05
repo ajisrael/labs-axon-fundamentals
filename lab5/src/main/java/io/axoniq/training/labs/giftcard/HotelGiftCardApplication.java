@@ -7,6 +7,9 @@ import org.axonframework.config.ConfigurationScopeAwareProvider;
 import org.axonframework.deadline.DeadlineManager;
 import org.axonframework.deadline.SimpleDeadlineManager;
 import org.axonframework.eventhandling.gateway.EventGateway;
+import org.axonframework.eventsourcing.EventCountSnapshotTriggerDefinition;
+import org.axonframework.eventsourcing.SnapshotTriggerDefinition;
+import org.axonframework.eventsourcing.Snapshotter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -40,4 +43,10 @@ public class HotelGiftCardApplication {
         });
         return xStream;
     }
+
+    @Bean(name = "giftCardSnapshotTriggerDefinition")
+    public SnapshotTriggerDefinition giftCardSnapshotTriggerDefinition(Snapshotter snapshotter) {
+        return new EventCountSnapshotTriggerDefinition(snapshotter, 10);
+    }
+    
 }
