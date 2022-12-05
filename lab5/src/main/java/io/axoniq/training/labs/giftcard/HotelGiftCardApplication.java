@@ -48,5 +48,4 @@ public class HotelGiftCardApplication {
     public SnapshotTriggerDefinition giftCardSnapshotTriggerDefinition(Snapshotter snapshotter) {
         return new EventCountSnapshotTriggerDefinition(snapshotter, 10);
     }
-    
 }

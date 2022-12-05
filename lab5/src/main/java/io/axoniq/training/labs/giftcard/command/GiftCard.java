@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
-@Aggregate
+@Aggregate(snapshotTriggerDefinition = "giftCardSnapshotTriggerDefinition")
 public class GiftCard {
 
     @AggregateIdentifier
